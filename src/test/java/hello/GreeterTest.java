@@ -1,4 +1,3 @@
-package hello;
 package com.vogella.junit.first;
 import static org.hamcrest.CoreMatchers.containsString;
 import static org.junit.Assert.*;
