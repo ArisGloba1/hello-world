@@ -1,4 +1,4 @@
-package org.springframework;
+package GreeterTest;
 import static org.hamcrest.CoreMatchers.containsString;
 import static org.junit.Assert.*;
 
