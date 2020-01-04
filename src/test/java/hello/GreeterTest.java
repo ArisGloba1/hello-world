@@ -1,4 +1,4 @@
-package hello;
+org.springframework;
 import static org.hamcrest.CoreMatchers.containsString;
 import static org.junit.Assert.*;
 
