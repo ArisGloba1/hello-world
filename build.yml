@@ -8,4 +8,5 @@ inputs:
 - name: hello-world
 
 run:
+  chmod +x hello-world/build.sh
   path: hello-world/build.sh
