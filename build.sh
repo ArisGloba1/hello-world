@@ -1,7 +1,7 @@
-path: sh
-args:
-- -exc
-- |
+#path: sh
+#args:
+#- -exc
+#- |
   export TERM=dumb
           #ls -R ./hello-world
   cd  ./hello-world/
