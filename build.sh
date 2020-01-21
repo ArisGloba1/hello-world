@@ -2,6 +2,7 @@ run:
 path: /bin/sh
 args:
 - -exc
+- -c
 - |
 export TERM=${TERM:-dumb}
 cd  hello-world/
