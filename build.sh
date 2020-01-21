@@ -1,5 +1,5 @@
 run:
-path: sh
+path: /bin/sh
 args:
 - -exc
 - |
