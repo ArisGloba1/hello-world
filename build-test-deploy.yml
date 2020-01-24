@@ -1,0 +1,91 @@
+resource_types:
+- name: artifactory
+  type: docker-image
+  source:
+          repository: pivotalservices/artifactory-resource
+
+
+resources:
+- name: hello-world
+  type: git
+  source:
+    uri: https://github.com/ArisGloba1/hello-world.git
+    #tag_filter: '1.0.*'
+
+- name: Stagin
+  type: artifactory
+  source:
+    endpoint: http://10.194.1.32:3001/artifactory
+    repository: "/war-files/hello"
+    regex: "agGlobal-(?<version>.*).war"
+    #regex: "agGlobal-1.0.0.war"
+    username: admin
+    password: password
+    skip_ssl_verification: true
+    ##### job work ########
+    
+jobs:
+
+- name: build-n-test
+  public: true
+  plan:
+  - get: hello-world
+    trigger: true
+  - task: build-n-test
+    config:
+      platform: linux
+      inputs:
+      - name: hello-world
+        #outputs:
+        #- name: hello_war
+      image_resource:
+        type: docker-image
+        source: { repository: maven, tag: 3.3.9-jdk-8 }
+      run:
+
+
+        path: sh
+        args:
+        - -exc
+        - |
+          export TERM=dumb
+          #ls -R ./hello-world
+          cd  ./hello-world/
+          mvn test
+          # mv target/agGlobal-*.war  ../hello_war
+
+
+
+- name: Staging-Deploy
+  public: true
+  plan:
+  - get: hello-world
+    passed: [build-n-test]
+    trigger: true
+  - task: Deploy-war
+    config:
+      platform: linux
+      inputs:
+      - name: hello-world
+      outputs:
+      - name: hello_war
+      image_resource:
+        type: docker-image
+        source: { repository: maven, tag: 3.3.9-jdk-8 }
+      run:
+
+
+        path: sh
+        args:
+        - -exc
+        - |
+          export TERM=dumb 
+          #ls -R ./hello-world
+          cd  ./hello-world/
+          mvn clean install
+          mv target/agGlobal-*.war  ../hello_war
+      
+  - put: Stagin
+    params:
+      file: hello_war/agGlobal-*.war
+      
