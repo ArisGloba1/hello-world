@@ -53,7 +53,7 @@
 			<configuration>
 				<transformers>
 					<transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
-						<mainClass>hello.GreeterTest</mainClass>
+						<mainClass>hello.HelloWorld</mainClass>
 						</transformer>
 						</transformers>
 			</configuration>
