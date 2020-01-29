@@ -10,5 +10,5 @@
 	<p>
 		You are coming from 
 		<%= request.getRemoteAddr()  %></p>
-	        regex: "agGlobal-(?<version>.*)"
+	        agGlobal Release-1.0.0
 </body>
